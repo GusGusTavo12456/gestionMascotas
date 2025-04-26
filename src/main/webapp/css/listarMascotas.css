@@ -1,0 +1,166 @@
+/* listarMascotas.css adaptado al estilo anterior */
+
+/* 1. Reset y Variables */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --clr-bg-1:      #f5f7fa;
+    --clr-bg-2:      #c3cfe2;
+    --clr-primary:   #43cea2;
+    --clr-secondary: #185a9d;
+    --clr-text:      #333333;
+    --radius:        0.75rem;
+    --transition:    0.4s ease;
+    --blur-strength: 12px;
+}
+
+/* 2. Tipografía & Fondo Animado */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(-45deg, var(--clr-bg-1), var(--clr-bg-2));
+    background-size: 400% 400%;
+    animation: gradientBG 10s var(--transition) infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 3. Formas flotantes suaves */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    animation: float 8s ease-in-out infinite;
+}
+body::before {
+    width: 250px; height: 250px;
+    top: -80px; left: -80px;
+}
+body::after {
+    width: 350px; height: 350px;
+    bottom: -120px; right: -120px;
+    animation-duration: 12s;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+@keyframes float {
+    0%,100% { transform: translateY(0) scale(0.9); }
+    50%     { transform: translateY(20px) scale(1); }
+}
+
+/* 4. Contenedor glassmorphism */
+.container {
+    position: relative;
+    z-index: 1;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(var(--blur-strength));
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    max-width: 900px;
+    width: 90%;
+    text-align: center;
+}
+
+/* 5. Título vibrante */
+.container h1 {
+    color: var(--clr-text);
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+.container h1::after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 60px;
+    background: linear-gradient(45deg, var(--clr-primary), var(--clr-secondary));
+    left: 50%;
+    bottom: -0.5rem;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+/* 6. Tabla moderna con glassmorphism */
+.pet-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: var(--radius);
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+/* 7. Cabecera colorida */
+.pet-table thead {
+    background: linear-gradient(45deg, var(--clr-primary), var(--clr-secondary));
+}
+.pet-table th {
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* 8. Filas suaves con hover brillante */
+.pet-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    color: var(--clr-text);
+    background: rgba(255,255,255,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: background var(--transition), transform var(--transition);
+}
+.pet-table tr:hover td {
+    background: rgba(255,255,255,0.8);
+    transform: translateX(4px);
+    box-shadow: inset 0 0 0 1px var(--clr-primary);
+}
+
+/* 9. Botón tipo enlace */
+.link-btn {
+    display: inline-block;
+    margin: 0.5rem 0.75rem;
+    padding: 0.65rem 1.5rem;
+    background: linear-gradient(45deg, var(--clr-primary), var(--clr-secondary));
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-weight: 500;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+.link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* 10. Mensaje sin datos */
+.no-data {
+    font-style: italic;
+    color: rgba(0,0,0,0.6);
+    padding: 1rem 0;
+}
+
+/* 11. Responsive */
+@media (max-width: 600px) {
+    .container { padding: 1.5rem; }
+    .container h1 { font-size: 1.75rem; }
+    .pet-table th,
+    .pet-table td { padding: 0.5rem 0.75rem; font-size: 0.9rem; }
+}
